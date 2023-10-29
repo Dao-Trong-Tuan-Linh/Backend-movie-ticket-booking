@@ -1,4 +1,4 @@
-import users from "../model/user.js";
+import users from "../model/user-model.js";
 import {
   BadRequestError,
   ConflictUserError,

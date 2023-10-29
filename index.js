@@ -3,6 +3,7 @@ import dotenv from "dotenv"
 import connectDB from "./db/db.js"
 import 'express-async-errors'
 import auth from "./route/auth.js"
+import menu from "./route/menu.js"
 import morgan from "morgan"
 import cors from "cors"
 
@@ -28,7 +29,7 @@ app.use(cors())
 
 //routes
 app.use('/api/v1',auth)
-
+app.use('/api/v1',menu)
 //rest api
 app.get('/',(req,res) => {
     res.send('This is movie-ticket-booking api')
