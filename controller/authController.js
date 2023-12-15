@@ -55,7 +55,7 @@ export const registerController = async (req, res) => {
   });
   res
     .status(StatusCodes.CREATED)
-    .json({ result: { name: user.name, email: user.email } });
+    .json({ result: { msg:'Đã đăng ký thành công'} });
 };
 
 export const loginController = async (req, res) => {
@@ -74,7 +74,7 @@ export const loginController = async (req, res) => {
   const token = jwt.sign({ id: user._id }, process.env.JWT_TOKEN, {
     expiresIn: "7d",
   });
-  res.status(StatusCodes.OK).json({ result:{token:token,user:{name:user.name,email:user.email}} });
+  res.status(StatusCodes.OK).json({ result:{token:token,user:{name:user.name,role:user.role}} });
 };
 
 export const forgotPasswordController = async (req, res) => {
