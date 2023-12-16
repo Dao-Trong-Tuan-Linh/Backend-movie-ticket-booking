@@ -1,7 +1,6 @@
 import { StatusCodes } from "http-status-codes";
 import { ConflictUserError, CustomAPIError } from "../errors/index.js";
 import menuModel from "../model/menu-model.js";
-import filmModel from "../model/film-model.js";
 
 export const getMenuController = async (req, res) => {
   const menu = await menuModel.find({});
@@ -16,7 +15,7 @@ export const getSingleMenuController = async (req, res) => {
   const { id } = req.query;
   const menu = await menuModel.findById(id);
   if (menu) {
-    res.status(StatusCodes.OK).json({ result:menu});
+    res.status(StatusCodes.OK).json({ result: menu });
   } else {
     throw new Error("Lỗi trong khi tải...");
   }
@@ -54,7 +53,7 @@ export const createMenuController = async (req, res) => {
 export const updateMenuController = async (req, res) => {
   const { id } = req.params;
   const { name, level, order, parentID, link } = req.body;
-  console.log(req.body)
+  console.log(req.body);
   if (!name) {
     throw new BadRequestError("Tên được yêu cầu");
   }
