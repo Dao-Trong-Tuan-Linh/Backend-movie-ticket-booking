@@ -12,15 +12,6 @@ export const allFilmsController = async (req, res) => {
   }
 };
 
-export const getFilmsById = async (req,res) => {
-  const allFilms = await filmModel.find({});
-  if (allFilms) {
-    const films = allFilms.map((film) => {[{id:film._id,name:film.name}]})
-    res.status(StatusCodes.OK).json({ result: films });
-  } else {
-    throw new CustomAPIError("Lỗi trong khi tải");
-  }
-}
 
 export const getFilmController = async (req, res) => {
   const { id } = req.query;
