@@ -12,11 +12,25 @@ export const allShowTimesController = async (req, res) => {
   }
 };
 
+export const getTimesController = async(req,res) => {
+  const {filmId,date} = req.query
+  const showtime = await showtimeModel.find({
+    filmId:filmId,
+    date:date
+  })
+  const times = showtime.map(item => ({time:item.time}))
+  if (times) {
+    res.status(StatusCodes.OK).json({ result:times});
+  } else {
+    throw new CustomAPIError("Lỗi trong khi tải");
+  }
+}
+
 export const rowNowShowingController = async (req, res) => {
   const currentDate = new Date();
-  const targetDate = `${currentDate.getDate()}/${
-    currentDate.getMonth() + 1
-  }/${currentDate.getFullYear()}`;
+  const targetDate = `${currentDate.getFullYear()}-${
+    currentDate.getMonth() + 1 < 10 ? `0${currentDate.getMonth() + 1}` : currentDate.getMonth() + 1
+  }-${currentDate.getDate() < 10 ? `0${currentDate.getDate()}` : currentDate.getDate()}`;
   console.log(targetDate);
   const nowShowingShowtime = await showtimeModel.aggregate([
       {
@@ -53,9 +67,9 @@ export const rowNowShowingController = async (req, res) => {
 
 export const rowComingSoonController = async (req, res) => {
   const currentDate = new Date();
-  const targetDate = `${currentDate.getDate()}/${
-    currentDate.getMonth() + 1
-  }/${currentDate.getFullYear()}`;
+  const targetDate = `${currentDate.getFullYear()}-${
+    currentDate.getMonth() + 1 < 10 ? `0${currentDate.getMonth() + 1}` : currentDate.getMonth() + 1
+  }-${currentDate.getDate() < 10 ? `0${currentDate.getDate()}` : currentDate.getDate()}`;
   console.log(targetDate);
   const films = await filmModel.find({date:{$gt:targetDate}}).limit(4).sort({date:1})
   const row = films.map(film => ({_id:film._id,name:film.name,image:film.image}))
@@ -68,9 +82,9 @@ export const rowComingSoonController = async (req, res) => {
 
 export const nowShowingController = async (req, res) => {
   const currentDate = new Date();
-  const targetDate = `${currentDate.getDate()}/${
-    currentDate.getMonth() + 1
-  }/${currentDate.getFullYear()}`;
+  const targetDate = `${currentDate.getFullYear()}-${
+    currentDate.getMonth() + 1 < 10 ? `0${currentDate.getMonth() + 1}` : currentDate.getMonth() + 1
+  }-${currentDate.getDate() < 10 ? `0${currentDate.getDate()}` : currentDate.getDate()}`;
 
   const nowShowingShowtime = await showtimeModel.aggregate([
       {
