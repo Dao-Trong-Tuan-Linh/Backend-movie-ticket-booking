@@ -7,6 +7,7 @@ import menu from "./route/menu.js"
 import category from "./route/category.js"
 import film from "./route/film.js"
 import showtime from "./route/showtime.js"
+import order from "./route/order.js"
 import morgan from "morgan"
 import cors from "cors"
 import { fileURLToPath } from 'url';
@@ -39,6 +40,7 @@ app.use('/api/v1',menu)
 app.use('/api/v1',category)
 app.use('/api/v1',film)
 app.use('/api/v1',showtime)
+app.use('/api/v1',order)
 //rest api
 app.get('/',(req,res) => {
     res.send('This is movie-ticket-booking api')

@@ -18,7 +18,7 @@ export const getTimesController = async(req,res) => {
     filmId:filmId,
     date:date
   })
-  const times = showtime.map(item => ({time:item.time}))
+  const times = showtime.map(item => ({time:item.time,money:item.money}))
   if (times) {
     res.status(StatusCodes.OK).json({ result:times});
   } else {
