@@ -9,7 +9,7 @@ export const requireSignIn = (req, res, next) => {
     const token = auth.split(" ")[1];
     const decode = jwt.verify(token, process.env.JWT_TOKEN);
     req.user = decode;
-    console.log(decode)
+    
     next();
   } else {
     throw new UnauthorizedError("Authentication token must be provided");

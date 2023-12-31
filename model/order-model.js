@@ -12,6 +12,12 @@ const orderSchema = new mongoose.Schema({
     seats:[
         {name:String}
     ],
+    date:{
+        type:String
+    },
+    time:{
+        type:String
+    },
     total:{
         type:String
     },
