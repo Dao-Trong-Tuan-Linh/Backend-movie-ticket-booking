@@ -108,7 +108,7 @@ export const nowShowingController = async (req, res) => {
 
   const filmIds = nowShowingShowtime.map(item => item._id)
   const films = await filmModel.find({_id:{$in:filmIds}})  
-  const nowShowing = films.map(film => ({_id:film._id,name:film.name,image:film.image,category:film.category}))
+  const nowShowing = films.map(film => ({_id:film._id,name:film.name,image:film.image,category:film.category,date:film.date}))
   if (nowShowing) {
     res.status(StatusCodes.OK).json({ result: nowShowing });
   } else {
@@ -118,12 +118,12 @@ export const nowShowingController = async (req, res) => {
 
 export const comingSoonController = async (req, res) => {
   const currentDate = new Date();
-  const targetDate = `${currentDate.getDate()}/${
-    currentDate.getMonth() + 1
-  }/${currentDate.getFullYear()}`;
+  const targetDate = `${currentDate.getFullYear()}-${
+    currentDate.getMonth() + 1 < 10 ? `0${currentDate.getMonth() + 1}` : currentDate.getMonth() + 1
+  }-${currentDate.getDate() < 10 ? `0${currentDate.getDate()}` : currentDate.getDate()}`;
   
   const films = await filmModel.find({date:{$gt:targetDate}}).sort({date:1})
-  const comingSoon = films.map(film => ({_id:film._id,name:film.name,image:film.image,category:film.category}))
+  const comingSoon = films.map(film => ({_id:film._id,name:film.name,image:film.image,category:film.category,date:film.date}))
   if (comingSoon) {
     res.status(StatusCodes.OK).json({ result:comingSoon});
   } else {
